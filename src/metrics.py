@@ -42,3 +42,9 @@ def sharpe_ratio(weights, mu, cov, risk_free_rate=0):
     port_vol = portfolio_vol(weights, cov)
     return (port_return - risk_free_rate) / port_vol
 
+def max_drawdown(daily_returns):
+    """Largest peak-to-trough fall of a daily return series."""
+    wealth = (1 + daily_returns).cumprod()
+    peak = wealth.cummax()
+    drawdown = wealth / peak - 1
+    return drawdown.min()
